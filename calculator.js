@@ -2,6 +2,7 @@ let firstNumber;
 let secondNumber;
 let operator;
 let strNumber = "";
+const results = document.querySelector(".results");
 function add(firstNumber,secondNumber) 
 {
     return firstNumber + secondNumber;
@@ -31,8 +32,7 @@ function clear()
     let firstNumber = null;
     let secondNumber = null;
     let operator = null;
-    const results = document.querySelector(".results");
-    results.textContent = null;
+    results.textContent = "0";
 }
 
 const keys = document.querySelectorAll('.key');
@@ -41,9 +41,15 @@ keys.forEach(key => key.addEventListener('click', keyPress));
 const ops = document.querySelectorAll('.op');
 ops.forEach(op => op.addEventListener('click', operatorPress));
 // add keyboard functionality later: window.addEventListener('keydown', keyPress);
+
+// add event listener for clear button
+const clearBtn = document.querySelector('.clear');
+clearBtn.addEventListener('click', clear);
+
 function keyPress()
 {
 strNumber += this.textContent;
+results.textContent = strNumber;
 console.log(strNumber);
 }
 
