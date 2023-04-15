@@ -1,6 +1,7 @@
 let firstNumber;
 let secondNumber;
 let operator;
+let strNumber = "";
 function add(firstNumber,secondNumber) 
 {
     return firstNumber + secondNumber;
@@ -27,6 +28,29 @@ function operate(firstNumber, operator, secondNumber)
 }
 function clear()
 {
+    let firstNumber = null;
+    let secondNumber = null;
+    let operator = null;
+    const results = document.querySelector(".results");
+    results.textContent = null;
+}
 
+const keys = document.querySelectorAll('.key');
+keys.forEach(key => key.addEventListener('click', keyPress));
+// add keyboard functionality later: window.addEventListener('keydown', keyPress);
+const ops = document.querySelectorAll('.op');
+ops.forEach(op => op.addEventListener('click', operatorPress));
+// add keyboard functionality later: window.addEventListener('keydown', keyPress);
+function keyPress()
+{
+strNumber += this.textContent;
+console.log(strNumber);
+}
+
+function operatorPress()
+{
+    if (firstNumber = null) firstNumber = parseInt(strNumber);
+    else if (secondNumber = null) secondNumber = parseInt(strNumber);
+    else console.error("Both numbers already assigned, something went wrong")
 }
 console.log(operate(5,"+",3));
