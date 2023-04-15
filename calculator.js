@@ -1,5 +1,5 @@
-let firstNumber;
-let secondNumber;
+let firstNumber = null;
+let secondNumber = null;
 let operator;
 let strNumber = "";
 const results = document.querySelector(".results");
@@ -29,10 +29,11 @@ function operate(firstNumber, operator, secondNumber)
 }
 function clear()
 {
-    let firstNumber = null;
-    let secondNumber = null;
-    let operator = null;
+    firstNumber = null;
+    secondNumber = null;
+    operator = null;
     results.textContent = "0";
+    strNumber = "";
 }
 
 const keys = document.querySelectorAll('.key');
@@ -55,8 +56,22 @@ console.log(strNumber);
 
 function operatorPress()
 {
-    if (firstNumber = null) firstNumber = parseInt(strNumber);
-    else if (secondNumber = null) secondNumber = parseInt(strNumber);
-    else console.error("Both numbers already assigned, something went wrong")
+    if (firstNumber === null) {
+        firstNumber = parseInt(strNumber);
+        strNumber = "";
+        console.log(strNumber);
+        results.textContent = strNumber;
+        operator = this.textContent;
+        
+    }
+    else if (secondNumber === null) {secondNumber = parseInt(strNumber);
+    results.textContent = operate(firstNumber, operator, secondNumber);
+        operator = this.textContent;}
+    else {
+        operator = this.textContent;
+        
+        results.textContent = operate(firstNumber, operator, secondNumber);
+        }
+    //else console.error("Both numbers already assigned, something went wrong");
 }
 console.log(operate(5,"+",3));
