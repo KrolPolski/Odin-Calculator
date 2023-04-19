@@ -53,3 +53,9 @@ button {flex: 1;
     font-size: 22px;
     font-weight: bold;
     border-radius: 10px;}
+
+.op, .keyEquals {background-color: orange;}
+.clear{
+    background-color: #222222;
+    color: white;
+    }

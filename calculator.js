@@ -51,6 +51,7 @@ function clear()
 
 const keys = document.querySelectorAll('.key');
 keys.forEach(key => key.addEventListener('click', keyPress));
+
 // add keyboard functionality later: window.addEventListener('keydown', keyPress);
 const ops = document.querySelectorAll('.op');
 ops.forEach(op => op.addEventListener('click', operatorPress));
@@ -72,6 +73,7 @@ equalsBtn.addEventListener('click', equalsPress);
 function keyPress()
 
 {
+    
     if (calculationComplete === false)
     {
         strNumber += this.textContent;
@@ -87,10 +89,12 @@ function keyPress()
         console.log(strNumber);
     }
     else console.error("calculationComplete is neither true nor false");
+    
 }
 
 function operatorPress()
 {
+    
     if (firstNumber === null && strNumber ==="")
     {
         firstNumber = 0;
@@ -98,7 +102,7 @@ function operatorPress()
         calculationComplete = false;
     }
     else if (firstNumber === null) {
-        firstNumber = parseInt(strNumber);
+        firstNumber = parseFloat(strNumber);
         strNumber = "";
         console.log(strNumber);
         operator = this.textContent;
@@ -108,7 +112,7 @@ function operatorPress()
     }
     else if (secondNumber === null && operator != null && strNumber !="") {
         calculationComplete = false;
-        secondNumber = parseInt(strNumber);
+        secondNumber = parseFloat(strNumber);
         let answer = operate(firstNumber, operator, secondNumber);
         if (isFinite(answer))results.textContent = answer;
         else results.textContent ="To Infinity... AND BEYOND!!!";        
@@ -135,12 +139,13 @@ function operatorPress()
 
 function equalsPress() 
 {
+    
     if (firstNumber === null && strNumber !="") {
-        firstNumber = parseInt(strNumber);
+        firstNumber = parseFloat(strNumber);
         strNumber = "";                
     }
     else if (secondNumber === null && operator != null && strNumber !="") {
-        secondNumber = parseInt(strNumber);
+        secondNumber = parseFloat(strNumber);
         let answer = operate(firstNumber, operator, secondNumber);
         if (isFinite(answer))results.textContent = answer;
         else results.textContent ="To Infinity... AND BEYOND!!!";      
@@ -174,6 +179,9 @@ function equalsPress()
         */
         }
 }
+
+
+/* old tests
 console.log(operate(5,"+",3));
 console.log(operate(2, "*", 3));
-console.log(multiply(2,3));
+console.log(multiply(2,3));*/
