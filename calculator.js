@@ -40,6 +40,8 @@ function clear()
     firstNumber = null;
     secondNumber = null;
     operator = null;
+    lastOperator = null;
+    lastSecondNumber = null;
     results.textContent = "0";
     strNumber = "";
 }
@@ -69,7 +71,12 @@ console.log(strNumber);
 
 function operatorPress()
 {
-    if (firstNumber === null) {
+    if (firstNumber === null && strNumber ==="")
+    {
+        firstNumber = 0;
+        operator = this.textContent;
+    }
+    else if (firstNumber === null) {
         firstNumber = parseInt(strNumber);
         strNumber = "";
         console.log(strNumber);
