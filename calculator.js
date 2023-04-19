@@ -4,6 +4,7 @@ let operator;
 let lastOperator;
 let lastSecondNumber;
 let strNumber = "";
+let calculationComplete = false;
 const results = document.querySelector(".results");
 function add(firstNumber,secondNumber) 
 {
@@ -63,10 +64,23 @@ equalsBtn.addEventListener('click', equalsPress);
 
 
 function keyPress()
+
 {
-strNumber += this.textContent;
-results.textContent = strNumber;
-console.log(strNumber);
+    if (calculationComplete === false)
+    {
+        strNumber += this.textContent;
+        results.textContent = strNumber;
+        console.log(strNumber);
+    }
+    else if (calculationComplete === true)
+    {
+        clear();
+        calculationComplete = false;
+        strNumber += this.textContent;
+        results.textContent = strNumber;
+        console.log(strNumber);
+    }
+    else console.error("calculationComplete is neither true nor false");
 }
 
 function operatorPress()
@@ -75,6 +89,7 @@ function operatorPress()
     {
         firstNumber = 0;
         operator = this.textContent;
+        calculationComplete = false;
     }
     else if (firstNumber === null) {
         firstNumber = parseInt(strNumber);
@@ -82,9 +97,11 @@ function operatorPress()
         console.log(strNumber);
         operator = this.textContent;
         console.log(operator);
+        calculationComplete = false;
         
     }
     else if (secondNumber === null && operator != null && strNumber !="") {
+        calculationComplete = false;
         secondNumber = parseInt(strNumber);
         let answer = operate(firstNumber, operator, secondNumber);
         results.textContent = answer;        
@@ -107,13 +124,16 @@ function operatorPress()
         }
     //else console.error("Both numbers already assigned, something went wrong");
 }
+// we have a problem, in that if we have pressed equals, and then enter a new expression, without hitting clear first, we get invalid results.
+// Somehow, we need to detect when the user is entering a new unrelated string after a result.
+// So... we can handle this with a check on the keypress event. so lets do that
 function equalsPress() 
 {
-    if (firstNumber === null) {
+    if (firstNumber === null && strNumber !="") {
         firstNumber = parseInt(strNumber);
         strNumber = "";                
     }
-    else if (secondNumber === null && operator != null) {
+    else if (secondNumber === null && operator != null && strNumber !="") {
         secondNumber = parseInt(strNumber);
         let answer = operate(firstNumber, operator, secondNumber);
         results.textContent = answer;        
@@ -123,6 +143,7 @@ function equalsPress()
         lastSecondNumber = secondNumber;
         secondNumber = null;
         operator = null;
+        calculationComplete = true;
     }
     else if (secondNumber === null && operator === null)
     {
@@ -132,6 +153,7 @@ function equalsPress()
         strNumber = "";
         firstNumber = answer;
         secondNumber = null;
+        calculationComplete = true;
     }
 
     else {
