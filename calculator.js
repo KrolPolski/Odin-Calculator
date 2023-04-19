@@ -77,7 +77,7 @@ function operatorPress()
         console.log(operator);
         
     }
-    else if (secondNumber === null) {
+    else if (secondNumber === null && operator != null && strNumber !="") {
         secondNumber = parseInt(strNumber);
         let answer = operate(firstNumber, operator, secondNumber);
         results.textContent = answer;        
@@ -85,10 +85,18 @@ function operatorPress()
         firstNumber = answer;
         secondNumber = null;
         operator = this.textContent;}
+    
+    else if (strNumber === "")
+    {
+        return;
+    }
     else {
         operator = this.textContent;
-        
-        results.textContent = operate(firstNumber, operator, secondNumber);
+        let answer = operate(firstNumber, operator, secondNumber);
+        results.textContent = answer;
+        strNumber = "";
+        firstNumber = answer;
+        secondNumber = null;
         }
     //else console.error("Both numbers already assigned, something went wrong");
 }
