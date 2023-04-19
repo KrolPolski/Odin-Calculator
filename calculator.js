@@ -73,8 +73,9 @@ equalsBtn.addEventListener('click', equalsPress);
 function keyPress()
 
 {
-    
-    if (calculationComplete === false)
+    // make it impossible to enter more than one decimal point
+    if (strNumber.includes(".") && this.textContent === ".") return;
+    else if (calculationComplete === false)
     {
         strNumber += this.textContent;
         results.textContent = strNumber;
