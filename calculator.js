@@ -62,6 +62,10 @@ clearBtn.addEventListener('click', clear);
 const equalsBtn = document.querySelector('#keyEquals');
 equalsBtn.addEventListener('click', equalsPress);
 
+// we have a problem, in that if we have pressed equals, and then enter a new expression, without hitting clear first, we get invalid results.
+// Somehow, we need to detect when the user is entering a new unrelated string after a result.
+// So... we can handle this with a check on the keypress event. so lets do that
+
 
 function keyPress()
 
@@ -104,7 +108,8 @@ function operatorPress()
         calculationComplete = false;
         secondNumber = parseInt(strNumber);
         let answer = operate(firstNumber, operator, secondNumber);
-        results.textContent = answer;        
+        if (isFinite(answer))results.textContent = answer;
+        else results.textContent ="To Infinity... AND BEYOND!!!";        
         strNumber = "";
         firstNumber = answer;
         secondNumber = null;
@@ -117,16 +122,15 @@ function operatorPress()
     else {
         operator = this.textContent;
         let answer = operate(firstNumber, operator, secondNumber);
-        results.textContent = answer;
+        if (isFinite(answer))results.textContent = answer;
+        else results.textContent ="To Infinity... AND BEYOND!!!";
         strNumber = "";
         firstNumber = answer;
         secondNumber = null;
         }
     //else console.error("Both numbers already assigned, something went wrong");
 }
-// we have a problem, in that if we have pressed equals, and then enter a new expression, without hitting clear first, we get invalid results.
-// Somehow, we need to detect when the user is entering a new unrelated string after a result.
-// So... we can handle this with a check on the keypress event. so lets do that
+
 function equalsPress() 
 {
     if (firstNumber === null && strNumber !="") {
@@ -136,7 +140,8 @@ function equalsPress()
     else if (secondNumber === null && operator != null && strNumber !="") {
         secondNumber = parseInt(strNumber);
         let answer = operate(firstNumber, operator, secondNumber);
-        results.textContent = answer;        
+        if (isFinite(answer))results.textContent = answer;
+        else results.textContent ="To Infinity... AND BEYOND!!!";      
         strNumber = "";
         firstNumber = answer;
         lastOperator = operator;
@@ -149,7 +154,8 @@ function equalsPress()
     {
         console.log("No operator defined so repeating last operation against existing total")
         let answer = operate(firstNumber, lastOperator, lastSecondNumber);
-        results.textContent = answer;        
+        if (isFinite(answer))results.textContent = answer;
+        else results.textContent ="To Infinity... AND BEYOND!!!";      
         strNumber = "";
         firstNumber = answer;
         secondNumber = null;
