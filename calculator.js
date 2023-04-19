@@ -45,6 +45,8 @@ function clear()
     lastSecondNumber = null;
     results.textContent = "0";
     strNumber = "";
+    calculationComplete = false;
+
 }
 
 const keys = document.querySelectorAll('.key');
@@ -150,7 +152,7 @@ function equalsPress()
         operator = null;
         calculationComplete = true;
     }
-    else if (secondNumber === null && operator === null)
+    else if (secondNumber === null && operator === null && lastOperator != null && lastSecondNumber != null)
     {
         console.log("No operator defined so repeating last operation against existing total")
         let answer = operate(firstNumber, lastOperator, lastSecondNumber);
