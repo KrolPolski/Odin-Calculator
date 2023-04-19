@@ -21,10 +21,15 @@ function divide(firstNumber,secondNumber)
 }
 function operate(firstNumber, operator, secondNumber)
 {
-    if (operator = "+") return add(firstNumber, secondNumber);
-    else if (operator = "-") return subtract(firstNumber, secondNumber);
-    else if (operator = "*") return multiply(firstNumber, secondNumber);
-    else if (operator = "/") return divide(firstNumber, secondNumber);
+    if (operator === "+") return add(firstNumber, secondNumber);
+    else if (operator === "-") return subtract(firstNumber, secondNumber);
+    else if (operator === "*") 
+    {
+        console.log("executing multiplication")
+        return multiply(firstNumber, secondNumber);
+    }
+
+    else if (operator === "/") return divide(firstNumber, secondNumber);
     else console.error("Invalid operator detected");
 }
 function clear()
@@ -60,12 +65,17 @@ function operatorPress()
         firstNumber = parseInt(strNumber);
         strNumber = "";
         console.log(strNumber);
-        results.textContent = strNumber;
         operator = this.textContent;
+        console.log(operator);
         
     }
-    else if (secondNumber === null) {secondNumber = parseInt(strNumber);
-    results.textContent = operate(firstNumber, operator, secondNumber);
+    else if (secondNumber === null) {
+        secondNumber = parseInt(strNumber);
+        let answer = operate(firstNumber, operator, secondNumber);
+        results.textContent = answer;        
+        strNumber = "";
+        firstNumber = answer;
+        secondNumber = null;
         operator = this.textContent;}
     else {
         operator = this.textContent;
@@ -75,3 +85,5 @@ function operatorPress()
     //else console.error("Both numbers already assigned, something went wrong");
 }
 console.log(operate(5,"+",3));
+console.log(operate(2, "*", 3));
+console.log(multiply(2,3));
